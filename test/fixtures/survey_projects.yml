@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  active: false
+  private: false
+  title: MyString
+  code: MyString
+  title_bn: MyString
+  survey_token: one
+
+two:
+  active: false
+  private: false
+  title: MyString
+  code: MyString
+  title_bn: MyString
+  survey_token: two

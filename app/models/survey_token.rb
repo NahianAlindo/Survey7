@@ -1,0 +1,2 @@
+class SurveyToken < ApplicationRecord
+end

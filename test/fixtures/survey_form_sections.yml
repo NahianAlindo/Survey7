@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  code: MyString
+  ordering: 1
+  removable: false
+  active: false
+  section_type: 1
+  all_logic: false
+  title_bn: MyString
+  survey_form: one
+
+two:
+  title: MyString
+  code: MyString
+  ordering: 1
+  removable: false
+  active: false
+  section_type: 1
+  all_logic: false
+  title_bn: MyString
+  survey_form: two

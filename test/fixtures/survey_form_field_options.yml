@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value: 1
+  label: MyText
+  custom_input: false
+  name: MyString
+  label_bn: MyText
+  survey_form_field: one
+
+two:
+  value: 1
+  label: MyText
+  custom_input: false
+  name: MyString
+  label_bn: MyText
+  survey_form_field: two

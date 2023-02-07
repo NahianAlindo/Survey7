@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  token: MyString
+  start_date: 2023-02-07
+  end_date: 2023-02-07
+  active: false
+  token_type: 1
+
+two:
+  token: MyString
+  start_date: 2023-02-07
+  end_date: 2023-02-07
+  active: false
+  token_type: 1
