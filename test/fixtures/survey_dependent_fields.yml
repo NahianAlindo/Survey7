@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  condition_type: 1
+  value: MyString
+  survey_form_field: one
+  survey_form_field_option: one
+
+two:
+  condition_type: 1
+  value: MyString
+  survey_form_field: two
+  survey_form_field_option: two
