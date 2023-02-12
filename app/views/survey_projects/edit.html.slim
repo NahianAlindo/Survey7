@@ -1,0 +1,10 @@
+h1 Editing survey project
+
+== render "form", survey_project: @survey_project
+
+br
+
+div
+  => link_to "Show this survey project", @survey_project
+  '|
+  =< link_to "Back to survey projects", survey_projects_path

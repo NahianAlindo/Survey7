@@ -1,0 +1,13 @@
+
+main.container
+  = link_to sanitize("&larr; Back to tokens"), survey_tokens_path
+
+div.header
+  h1 New survey token
+
+= turbo_frame_tag @survey_token do
+  == render "form", survey_token: @survey_token
+br
+
+/ div
+/   = link_to "Back to survey tokens", survey_tokens_path

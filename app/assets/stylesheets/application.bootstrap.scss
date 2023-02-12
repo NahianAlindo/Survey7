@@ -1,2 +1,67 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+//@import "font-awesome";
+@import "mixins/media";
+
+// Configuration
+@import "config/variables";
+@import "config/reset";
+@import "config/animations";
+
+// Components
+@import "components/btn";
+@import "components/error_message";
+@import "components/form";
+@import "components/visually_hidden";
+@import "components/survey";
+@import "components/navbar";
+@import "components/flash";
+@import "components/empty_state";
+@import "components/turbo_progress_bar";
+// Layouts
+@import "layouts/container";
+@import "layouts/header";
+@import "utilities/margins";
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #0d6eaa;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f0f0f0;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+#table td, #table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

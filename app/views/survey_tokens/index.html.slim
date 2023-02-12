@@ -1,0 +1,43 @@
+p style="color: green" = notice
+
+.row
+  .col-12
+    .card.card-default
+      p
+        p.d-flex.justify-content-center
+          = link_to "New Survey Token", new_survey_token_path, class: 'btn btn-sm btn-primary', data: { turbo_frame: dom_id(SurveyToken.new) }
+      = turbo_frame_tag SurveyToken.new
+      = turbo_frame_tag "survey_tokens" do
+        = render @survey_tokens
+      .card-header.card-header-border-bottom.d-flex.justify-content-between
+        h2 = "Survey Tokens"
+
+      .card-body
+        table
+          tr
+            th = "SL"
+            th = "Token"
+            th = "Type"
+            th = "Start Date"
+            th = "End Date"
+            th.text-center = "Status"
+            th.text-center.nosort = "Active"
+            th.nosort.actions = "Actions"
+          / tbody
+          /   - @survey_tokens.each_with_index |survey_token, index|
+          /     tr
+          /       td data-order="#{index+1}" = index + 1
+          /       td data-order="#{index+1}" = index + 1
+          /       td data-order="#{index+1}" = index + 1
+          /       td data-order="#{index+1}" = index + 1
+          /       td data-order="#{index+1}" = index + 1
+          /       td data-order="#{index+1}" = index + 1
+          /       td data-order="#{index+1}" = index + 1
+
+/ #survey_tokens
+/   - @survey_tokens.each_with_index do |survey_token, index|
+/     == render survey_token
+/     p
+/       = link_to "Show this survey token", survey_token
+/
+/ = link_to "New survey token", new_survey_token_path

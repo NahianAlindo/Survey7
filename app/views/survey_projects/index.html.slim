@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Survey projects
+
+#survey_projects
+  - @survey_projects.each do |survey_project|
+    == render survey_project
+    p
+      = link_to "Show this survey project", survey_project
+
+= link_to "New survey project", new_survey_project_path

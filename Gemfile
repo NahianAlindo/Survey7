@@ -87,7 +87,8 @@ gem 'tinymce-rails'
 gem 'whenever', require: false
 gem 'will_paginate', '~> 3.1.0'
 gem 'email_address'
-
+gem "breadcrumbs_on_rails"
+gem "font-awesome-sass", "~> 6.3.0"
 # Gem for finding string similarity
 gem 'fuzzy_match', '~> 2.1'
 gem 'similar_strings', '~> 0.0.1'
@@ -111,6 +112,9 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'letter_opener'
+
+  gem 'therubyracer'
+  gem 'execjs'
 end
 
 group :development do

@@ -1,0 +1,32 @@
+= form_with(model: @survey_token) do |form|
+  - if @survey_token.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(@survey_token.errors.count, "error")} prohibited this survey_token from being saved:"
+      ul.alert.alert-danger
+        - @survey_token.errors.each do |error|
+          li = error.full_message
+
+  .row
+    fieldset.form-group.col-md-12.col-12
+      label = "Token"
+      span.req-field title="required" *
+      = form.text_field :token, placeholder: "Token",
+              class: 'form-control form-control-sm input-sm', required: true
+
+  .row
+    fieldset.form-group.col-md-6.col-12
+      label = "Start Date"
+      span.req-field title="required" *
+      = form.date_field :start_date,
+                  autocomplete: 'off',
+                  class: 'form-control form-control-sm input-sm datepicker-filter', required: true
+    fieldset.form-group.col-md-6.col-12
+      label = "End Date"
+      span.req-field title="required" *
+      = form.date_field :end_date,
+              autocomplete: 'off',
+              class: 'form-control form-control-sm input-sm datepicker-filter', required: true
+    p
+      p.d-flex.justify-content-center.my-10
+        = link_to "Cancel", survey_tokens_path, class: "btn btn--light"
+        = form.submit
