@@ -1,1 +1,10 @@
-div id="#{dom_id survey_token}"
+= turbo_frame_tag survey_token do
+  div.table.min-w-full
+    .row
+      .col = survey_token.token
+      .col = survey_token.start_date
+      .col = survey_token.end_date
+      .col
+        - if action_name != "show"
+          = link_to "Edit", edit_survey_token_path(survey_token), class: "btn border border-info"
+          = button_to "Delete", survey_token_path(survey_token), method: :delete, class:"btn btn-danger"

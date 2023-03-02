@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
@@ -13,8 +14,8 @@
   <nav>
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="#">Survey Token</a>
-      <a href="#">Survey Projects</a>
+      <a href="<%= survey_tokens_path %>">Survey Tokens</a>
+      <a href="<%= survey_projects_path %>">Survey Projects</a>
       <a href="#">Survey List</a>
     </div>
   </nav>

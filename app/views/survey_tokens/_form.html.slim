@@ -1,32 +1,12 @@
-= form_with(model: @survey_token) do |form|
-  - if @survey_token.errors.any?
-    div style="color: red"
-      h2 = "#{pluralize(@survey_token.errors.count, "error")} prohibited this survey_token from being saved:"
-      ul.alert.alert-danger
-        - @survey_token.errors.each do |error|
-          li = error.full_message
-
+= form_with model: survey_token, id: dom_id(survey_token, "form"), class: "table min-w-full" do |form|
   .row
-    fieldset.form-group.col-md-12.col-12
-      label = "Token"
-      span.req-field title="required" *
-      = form.text_field :token, placeholder: "Token",
-              class: 'form-control form-control-sm input-sm', required: true
+    .col
+      = form.text_field :token, placeholder: "Token", class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
 
-  .row
-    fieldset.form-group.col-md-6.col-12
-      label = "Start Date"
-      span.req-field title="required" *
-      = form.date_field :start_date,
-                  autocomplete: 'off',
-                  class: 'form-control form-control-sm input-sm datepicker-filter', required: true
-    fieldset.form-group.col-md-6.col-12
-      label = "End Date"
-      span.req-field title="required" *
-      = form.date_field :end_date,
-              autocomplete: 'off',
-              class: 'form-control form-control-sm input-sm datepicker-filter', required: true
-    p
-      p.d-flex.justify-content-center.my-10
-        = link_to "Cancel", survey_tokens_path, class: "btn btn--light"
-        = form.submit
+    .col
+      = form.date_field :start_date, class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
+
+    .col
+      = form.date_field :end_date, class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
+  div.inline
+    = form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer"

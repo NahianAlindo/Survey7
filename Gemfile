@@ -87,19 +87,18 @@ gem 'tinymce-rails'
 gem 'whenever', require: false
 gem 'will_paginate', '~> 3.1.0'
 gem 'email_address'
-gem "breadcrumbs_on_rails"
 gem "font-awesome-sass", "~> 6.3.0"
 # Gem for finding string similarity
 gem 'fuzzy_match', '~> 2.1'
 gem 'similar_strings', '~> 0.0.1'
-
+gem 'pagy', '~> 5.10'
 # Job queue
 gem 'sidekiq'
 gem 'sidekiq-scheduler', '~> 3.0', '>= 3.0.1'
 gem 'sinatra', require: false
 # Use Sass to process CSS
 # gem "sassc-rails"
-
+gem 'tailwindcss-rails'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

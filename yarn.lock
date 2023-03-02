@@ -185,6 +185,11 @@ braces@~3.0.2:
   optionalDependencies:
     fsevents "~2.3.2"
 
+debounce@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
+  integrity sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==
+
 esbuild@^0.17.6:
   version "0.17.6"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.17.6.tgz#bbccd4433629deb6e0a83860b3b61da120ba4e01"
@@ -231,6 +236,11 @@ glob-parent@~5.1.2:
   integrity sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==
   dependencies:
     is-glob "^4.0.1"
+
+gridtable.css@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gridtable.css/-/gridtable.css-1.0.0.tgz#a37054a538c10f9a9f838e5a1b34b6ae3632fcc9"
+  integrity sha512-Acjxq2bAMatpGfEoF++CyVklz1+4uiePFB/pyvD9YExgLkcMnv2D7Jl18Awfp2vdx74v4R/wlhkWT6EDfzHIuA==
 
 immutable@^4.0.0:
   version "4.2.4"

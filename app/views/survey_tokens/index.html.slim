@@ -1,43 +1,18 @@
-p style="color: green" = notice
+div.w-full
+  div.flex.justify-between.items-center
+    h1.font-bold.text-4xl = "Survey Tokens"
+    div class=""
+      = form_with url: survey_tokens_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "survey_tokens", turbo_action: "advance" } do
+        = text_field_tag "filter", nil, placeholder: "Filter", class: "inline-block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
 
-.row
-  .col-12
-    .card.card-default
-      p
-        p.d-flex.justify-content-center
-          = link_to "New Survey Token", new_survey_token_path, class: 'btn btn-sm btn-primary', data: { turbo_frame: dom_id(SurveyToken.new) }
-      = turbo_frame_tag SurveyToken.new
-      = turbo_frame_tag "survey_tokens" do
-        = render @survey_tokens
-      .card-header.card-header-border-bottom.d-flex.justify-content-between
-        h2 = "Survey Tokens"
-
-      .card-body
-        table
-          tr
-            th = "SL"
-            th = "Token"
-            th = "Type"
-            th = "Start Date"
-            th = "End Date"
-            th.text-center = "Status"
-            th.text-center.nosort = "Active"
-            th.nosort.actions = "Actions"
-          / tbody
-          /   - @survey_tokens.each_with_index |survey_token, index|
-          /     tr
-          /       td data-order="#{index+1}" = index + 1
-          /       td data-order="#{index+1}" = index + 1
-          /       td data-order="#{index+1}" = index + 1
-          /       td data-order="#{index+1}" = index + 1
-          /       td data-order="#{index+1}" = index + 1
-          /       td data-order="#{index+1}" = index + 1
-          /       td data-order="#{index+1}" = index + 1
-
-/ #survey_tokens
-/   - @survey_tokens.each_with_index do |survey_token, index|
-/     == render survey_token
-/     p
-/       = link_to "Show this survey token", survey_token
-/
-/ = link_to "New survey token", new_survey_token_path
+  div.min-w-full.my-8
+    = turbo_frame_tag "new-survey-token-form", src: new_survey_token_path
+    div.table.font-bold.min-w-full
+      .row
+        .col = "Token"
+        .col = "Start Date"
+        .col = "End Date"
+        .col = "Actions"
+    = turbo_frame_tag "survey_tokens" do
+      = render @survey_tokens
+      == pagy_nav(@pagy, link_extra: 'data-turbo-action="advance"')

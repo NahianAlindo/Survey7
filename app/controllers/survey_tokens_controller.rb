@@ -1,10 +1,17 @@
 class SurveyTokensController < ApplicationController
+  include ActionView::RecordIdentifier
   before_action :set_survey_token, only: %i[ show edit update destroy ]
   before_action :index_breadcrumb, only: %i[index new edit show]
   before_action :entry_breadcrumb, only: %i[edit show]
   # GET /survey_tokens or /survey_tokens.json
   def index
-    @survey_tokens = SurveyToken.all
+    filtered = SurveyToken.where("token LIKE ?", "%#{params[:filter]}%")
+    @pagy, @survey_tokens = pagy(filtered.all.ordered, items: 5)
+
+    # respond_to do |format|
+    #   format.html
+    #   format.turbo_stream
+    # end
   end
 
   # GET /survey_tokens/1 or /survey_tokens/1.json
@@ -14,7 +21,7 @@ class SurveyTokensController < ApplicationController
   # GET /survey_tokens/new
   def new
     @survey_token = SurveyToken.new
-    add_breadcrumb "New Survey Token"
+    # add_breadcrumb "New Survey Token"
   end
 
   # GET /survey_tokens/1/edit
@@ -24,11 +31,18 @@ class SurveyTokensController < ApplicationController
   # POST /survey_tokens or /survey_tokens.json
   def create
     @survey_token = SurveyToken.new(survey_token_params)
+
     if @survey_token.save
-      respond_to do |format|
-        format.html { redirect_to survey_token_path, notice: "Quote was successfully created." }
-        format.turbo_stream
-      end
+      flash.now[:notice] = "Survey Token was successfully created."
+      render turbo_stream: [
+        turbo_stream.prepend("survey_tokens", @survey_token),
+        turbo_stream.replace(
+          "form_survey_token",
+          partial: "form",
+          locals: { survey_token: SurveyToken.new }
+        ),
+        turbo_stream.replace("notice", partial: "layouts/flash")
+      ]
     else
       render :new, status: :unprocessable_entity
     end
@@ -36,33 +50,27 @@ class SurveyTokensController < ApplicationController
 
 
   def update
-    if @survey_token.update_attributes(survey_token_params)
-      redirect_to survey_tokens_path,
-                  notice: 'Survey token is successfully updated.'
+    if @survey_token.update(survey_token_params)
+      flash.now[:notice] = "Survey Token was successfully updated."
+      render turbo_stream: [
+        turbo_stream.replace(@survey_token, @survey_token),
+        turbo_stream.replace("notice", partial: "layouts/flash")
+      ]
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    begin
-      if @survey_token.destroy
-        redirect_to survey_tokens_path,
-                    notice: 'Survey token is successfully deleted.'
-      end
-    rescue StandardError => e
-      redirect_back fallback_location: root_path,
-                    flash: { error: 'controllers roles operation could not be completed.' }
-    end
+    @survey_token.destroy
+    flash.now[:notice] = "Survey Token was successfully destroyed."
+    render turbo_stream: [
+      turbo_stream.remove(@survey_token),
+      turbo_stream.replace("notice", partial: "layouts/flash")
+    ]
   end
 
-  def show
-    if @survey_token.Individual_Survey?
-      @surveys = @survey_token.surveys.includes([:survey_project])
-    else
-      @surveys = Survey.includes([:survey_project]).where(survey_project_id: @survey_token.survey_projects.pluck(:id))
-    end
-  end
+
 
 
   def index_breadcrumb
@@ -82,11 +90,6 @@ class SurveyTokensController < ApplicationController
   end
 
   def set_survey_token
-    begin
-      @survey_token = SurveyToken.find(params[:id])
-    rescue StandardError => e
-      redirect_back fallback_location: survey_tokens_path,
-                    flash: { error: invalid_id_error_message(e) }
-    end
+    @survey_token = SurveyToken.find(params[:id])
   end
 end
