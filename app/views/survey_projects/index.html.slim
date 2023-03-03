@@ -1,11 +1,20 @@
-p style="color: green" = notice
+div.w-full
+  div.flex.justify-between.items-center
+    h1.font-bold.text-4xl = "Survey Projects"
+    div class=""
+      = form_with url: survey_projects_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "survey_projects", turbo_action: "advance" } do
+        = text_field_tag "filter", nil, placeholder: "Filter", class: "inline-block rounded-md border border-gray-200 outline-none px-3 py-2  w-min"
+        = select_tag :count, options_for_select([5,10,25,50,100], selected: params[:count]), { onchange: "this.form.requestSubmit()" }
 
-h1 Survey projects
-
-#survey_projects
-  - @survey_projects.each do |survey_project|
-    == render survey_project
-    p
-      = link_to "Show this survey project", survey_project
-
-= link_to "New survey project", new_survey_project_path
+  div.min-w-full.my-8
+    = turbo_frame_tag "new-survey-project-form", src: new_survey_project_path
+    div.table.font-bold.min-w-full
+      .row
+        .col
+          = sort_link_to "Title", :title, class: "table-cell pr-4", data: { turbo_action: "advance" }
+        .col
+          = sort_link_to "Code", :code, class: "table-cell pr-4", data: { turbo_action: "advance" }
+        .col = "Actions"
+    = turbo_frame_tag "survey_projects" do
+      = render @survey_projects
+      == pagy_nav(@pagy, link_extra: 'data-turbo-action="advance"')

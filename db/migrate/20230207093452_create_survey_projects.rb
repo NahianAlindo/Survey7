@@ -6,7 +6,7 @@ class CreateSurveyProjects < ActiveRecord::Migration[7.0]
       t.string :title
       t.string :code
       t.string :title_bn
-      t.references :survey_token, null: false, foreign_key: true
+      t.references :survey_token, null: true, foreign_key: true
 
       t.timestamps
     end

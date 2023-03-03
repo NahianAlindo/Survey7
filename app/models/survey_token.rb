@@ -8,7 +8,7 @@ class SurveyToken < ApplicationRecord
   validates :start_date, :end_date, presence: true
 
   validate :check_time
-  scope :ordered, -> { order(id: :desc) }
+  # scope :ordered, -> { order(id: :desc) }
 
   def check_time
     errors.add :start_date, "should be greater than end date" if start_date && end_date && start_date > end_date

@@ -1,10 +1,11 @@
-= form_with(model: @survey_project) do |form|
-  - if @survey_project.errors.any?
-    div style="color: red"
-      h2 = "#{pluralize(@survey_project.errors.count, "error")} prohibited this survey_project from being saved:"
-      ul
-        - @survey_project.errors.each do |error|
-          li = error.full_message
+= form_with model: survey_project, id: dom_id(survey_project, "form") do |form|
+  table.min-w-full
+    tr
+      td.px-1
+        = form.text_field :title, placeholder: "Title", class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
+      td.px-1
+        = form.text_field :title_bn, placeholder: "Title Bengali", class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
 
-  div
-    = form.submit
+
+      td
+        = form.submit class: "rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer"

@@ -6,5 +6,6 @@
       .col = survey_token.end_date
       .col
         - if action_name != "show"
-          = link_to "Edit", edit_survey_token_path(survey_token), class: "btn border border-info"
-          = button_to "Delete", survey_token_path(survey_token), method: :delete, class:"btn btn-danger"
+          .col
+            = link_to "Edit", edit_survey_token_path(survey_token), class: "btn border border-info"
+            = button_to "Delete", survey_token_path(survey_token), method: :delete, class:"btn btn-danger"

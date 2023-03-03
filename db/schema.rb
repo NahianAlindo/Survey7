@@ -155,7 +155,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_08_113448) do
     t.string "title"
     t.string "code"
     t.string "title_bn"
-    t.integer "survey_token_id", null: false
+    t.integer "survey_token_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["survey_token_id"], name: "index_survey_projects_on_survey_token_id"
