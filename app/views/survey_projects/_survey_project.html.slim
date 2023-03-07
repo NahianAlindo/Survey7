@@ -1,15 +1,14 @@
 .row
-  .col-8
-  .col-4
+  .col-9
+  .col-3
     = link_to "Show", survey_project, class: "btn border border-success"
 = turbo_frame_tag survey_project do
   div.table.min-w-full
     .row
+      / .col = survey_project_counter + 1
       .col = survey_project.title
       .col = survey_project.code
       .col
         - if action_name != "show"
           = link_to "Edit", edit_survey_project_path(survey_project), class: "btn border border-info"
-          = button_to "Delete", survey_project_path(survey_project), method: :delete, class: "btn btn-danger"
-
-hr
+          = button_to "Delete", survey_project_path(survey_project), method: :delete, class:"btn btn-danger"

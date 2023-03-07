@@ -1,6 +1,7 @@
 = turbo_frame_tag survey_token do
   div.table.min-w-full
     .row
+      / .col = survey_token_counter + 1
       .col = survey_token.token
       .col = survey_token.start_date
       .col = survey_token.end_date

@@ -7,16 +7,16 @@ class SurveyTokensController < ApplicationController
   def index
     filtered = SurveyToken.where("token LIKE ?", "%#{params[:filter]}%")
     @pagy, @survey_tokens = pagy(filtered.all.reorder(sort_column => sort_direction), items: params.fetch(:count, 5))
-
   end
 
   def sort_column
-    %w{ token start_date end_date token_type active }.include?(params[:sort]) ? params[:sort] : "token"
+    %w{ token start_date end_date }.include?(params[:sort]) ? params[:sort] : "name"
   end
 
   def sort_direction
     %w{ asc desc }.include?(params[:direction]) ? params[:direction] : "asc"
   end
+
   # GET /survey_tokens/1 or /survey_tokens/1.json
   def show
   end
@@ -24,6 +24,7 @@ class SurveyTokensController < ApplicationController
   # GET /survey_tokens/new
   def new
     @survey_token = SurveyToken.new
+    # add_breadcrumb "New Survey Token"
   end
 
   # GET /survey_tokens/1/edit

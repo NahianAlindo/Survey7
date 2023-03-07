@@ -8,14 +8,14 @@ class SurveyProjectsController < ApplicationController
     @pagy, @survey_projects = pagy(filtered.all.reorder(sort_column => sort_direction), items: params.fetch(:count, 5))
   end
 
-
   def sort_column
-    %w{ title active private code }.include?(params[:sort]) ? params[:sort] : "title"
+    %w{ title code }.include?(params[:sort]) ? params[:sort] : "title"
   end
 
   def sort_direction
     %w{ asc desc }.include?(params[:direction]) ? params[:direction] : "asc"
   end
+
   # GET /survey_projects/1 or /survey_projects/1.json
   def show
   end
@@ -32,8 +32,9 @@ class SurveyProjectsController < ApplicationController
   # POST /survey_projects or /survey_projects.json
   def create
     @survey_project = SurveyProject.new(survey_project_params)
+
     if @survey_project.save
-      flash.now[:notice] = "Survey Project was successfully created."
+      flash.now[:notice] = "Survey project was successfully created."
       render turbo_stream: [
         turbo_stream.prepend("survey_projects", @survey_project),
         turbo_stream.replace(
@@ -51,7 +52,7 @@ class SurveyProjectsController < ApplicationController
   # PATCH/PUT /survey_projects/1 or /survey_projects/1.json
   def update
     if @survey_project.update(survey_project_params)
-      flash.now[:notice] = "Survey Project was successfully updated."
+      flash.now[:notice] = "Survey project was successfully updated."
       render turbo_stream: [
         turbo_stream.replace(@survey_project, @survey_project),
         turbo_stream.replace("notice", partial: "layouts/flash")
@@ -64,22 +65,29 @@ class SurveyProjectsController < ApplicationController
   # DELETE /survey_projects/1 or /survey_projects/1.json
   def destroy
     @survey_project.destroy
-    flash.now[:notice] = "Survey Project was successfully destroyed."
+    flash.now[:notice] = "Survey project was successfully destroyed."
     render turbo_stream: [
       turbo_stream.remove(@survey_project),
       turbo_stream.replace("notice", partial: "layouts/flash")
     ]
   end
 
+
   private
+
   def set_survey_project
-    @survey_project = SurveyProject.find(params[:id])
+    begin
+      @survey_project = SurveyProject.find(params[:id])
+    rescue StandardError => e
+      redirect_back fallback_location: survey_projects_path,
+                    flash: { error: invalid_id_error_message(e) }
+    end
   end
 
   # Only allow a list of trusted parameters through.
   def survey_project_params
     params.require(:survey_project).permit(
-      :active, :private, :title, :code, :title_bn
+      :title, :code, :private, :active, :survey_project_id, :title_bn
     )
   end
 end

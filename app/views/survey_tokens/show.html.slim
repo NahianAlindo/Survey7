@@ -3,7 +3,7 @@ p style="color: green" = notice
 == render @survey_token
 
 div
-  => link_to "Edit this survey token", edit_survey_token_path(@survey_token)
+  / => link_to "Edit this survey token", edit_survey_token_path(@survey_token)
   =< link_to "Back to survey tokens", survey_tokens_path
 
   = button_to "Destroy this survey token", @survey_token, method: :delete

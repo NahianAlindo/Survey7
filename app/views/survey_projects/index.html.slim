@@ -1,19 +1,18 @@
 div.w-full
   div.flex.justify-between.items-center
-    h1.font-bold.text-4xl = "Survey Projects"
+    h1.font-bold.text-4xl = "Survey projects"
     div class=""
       = form_with url: survey_projects_path, method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "survey_projects", turbo_action: "advance" } do
         = text_field_tag "filter", nil, placeholder: "Filter", class: "inline-block rounded-md border border-gray-200 outline-none px-3 py-2  w-min"
-        = select_tag :count, options_for_select([5,10,25,50,100], selected: params[:count]), { onchange: "this.form.requestSubmit()" }
+        = select_tag :count, options_for_select([5, 10, 25, 50, 100], selected: params[:count]), { onchange: "this.form.requestSubmit()" }
 
   div.min-w-full.my-8
     = turbo_frame_tag "new-survey-project-form", src: new_survey_project_path
     div.table.font-bold.min-w-full
       .row
-        .col
-          = sort_link_to "Title", :title, class: "table-cell pr-4", data: { turbo_action: "advance" }
-        .col
-          = sort_link_to "Code", :code, class: "table-cell pr-4", data: { turbo_action: "advance" }
+        / .col = "SL"
+        .col = sort_link_to "Title", :name, class: "table-cell pr-4", data: { turbo_action: "advance" }
+        .col = sort_link_to "Code", :code, class: "table-cell pr-4", data: { turbo_action: "advance" }
         .col = "Actions"
     = turbo_frame_tag "survey_projects" do
       = render @survey_projects

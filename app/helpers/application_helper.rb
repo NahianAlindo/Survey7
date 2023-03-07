@@ -16,13 +16,13 @@ module ApplicationHelper
     html.join.html_safe
   end
 
-  def sort_link_to(token, column, **options)
+  def sort_link_to(name, column, **options)
     if params[:sort] == column.to_s
       direction = params[:direction] == "asc" ? "desc" : "asc"
     else
       direction = "asc"
     end
 
-    link_to token, request.params.merge(sort: column, direction: direction), **options
+    link_to name, request.params.merge(sort: column, direction: direction), **options
   end
 end

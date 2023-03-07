@@ -1,11 +1,9 @@
-= form_with model: survey_project, id: dom_id(survey_project, "form") do |form|
-  table.min-w-full
-    tr
-      td.px-1
-        = form.text_field :title, placeholder: "Title", class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
-      td.px-1
-        = form.text_field :title_bn, placeholder: "Title Bengali", class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
+= form_with model: survey_project, id: dom_id(survey_project, "form"), class: "table min-w-full" do |form|
+  .row
+    .col
+      = form.text_field :title, placeholder: "Title", class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
+    .col
+      = form.text_field :title_bn, placeholder: "Title Bengali", class: "block rounded-md border border-gray-200 outline-none px-3 py-2  w-full"
 
-
-      td
-        = form.submit class: "rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer"
+  div.inline
+    = form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer"
