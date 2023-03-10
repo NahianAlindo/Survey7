@@ -4,6 +4,9 @@ module ApplicationHelper
     text&.gsub('_', ' ')&.gsub('\bor', '/')
   end
 
+  def coalesce(value, ret = '-')
+    value.nil? ? ret : value
+  end
 
 
   def inline_error_for(field, form_obj)

@@ -1,10 +1,21 @@
-p style="color: green" = notice
+.row
+  .col-12
+    .card.card-default
+      .card-header.card-header-border-bottom.d-flex.justify-content-between
+        h2 = 'Survey Project Details'
+        = turbo_frame_tag @survey_project do
+          = link_to 'Edit', edit_survey_project_path(@survey_project), class: 'btn btn-primary btn-sm'
 
-/ == render @survey_project
+      .card-body
+        .text-center
+          span.h5.text-dark.mr-2.ml-2 = 'Title: '
+          span.h5 = coalesce @survey_project.title
+          span.h5.text-dark.mr-2.ml-2 = '|  শিরোনামঃ '
+          .small.font-italic
+            span.mr-2 = 'Code'
+            span = coalesce @survey_project.code
 
-div
-  => link_to "Edit this survey project", edit_survey_project_path(@survey_project)
-  '|
-  =< link_to "Back to survey projects", survey_projects_path
-
-  = button_to "Destroy this survey project", @survey_project, method: :delete
+    .card.card-default
+      .card-header.card-header-border-bottom.d-flex.justify-content-between
+        h2 = 'Surveys'
+        = link_to "Add New Survey", new_survey_project_path(@survey_project), class: 'btn btn-primary btn-sm'
