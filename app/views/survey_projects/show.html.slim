@@ -17,5 +17,23 @@
 
     .card.card-default
       .card-header.card-header-border-bottom.d-flex.justify-content-between
-        h2 = 'Surveys'
-        = link_to "Add New Survey", new_survey_project_path(@survey_project), class: 'btn btn-primary btn-sm'
+        = turbo_frame_tag "new-survey-project-survey-form", src: new_survey_project_survey_path(@survey_project)
+
+    .card-body
+      div.w-full
+        div.flex.justify-between.items-center
+          h1.font-bold.text-4xl.text-center = "Surveys"
+          div class=""
+            / = form_with url: survey_project_surveys_path(@survey_project.surveys), method: :get, data: { controller: "form", action: "input->form#submit", turbo_frame: "surveys", turbo_action: "advance" } do
+            /   = text_field_tag "filter", nil, placeholder: "Filter", class: "inline-block rounded-md border border-gray-200 outline-none px-3 py-2  w-min"
+            /   = select_tag :count, options_for_select([5, 10, 25, 50, 100], selected: params[:count]), { onchange: "this.form.requestSubmit()" }
+
+        div.min-w-full.my-8
+          div.table.font-bold.min-w-full
+            .row
+              / .col = "SL"
+              .col = sort_link_to "Code", :code, class: "table-cell pr-4", data: { turbo_action: "advance" }
+              .col = sort_link_to "Title", :title, class: "table-cell pr-4", data: { turbo_action: "advance" }
+              .col = "Actions"
+      = turbo_frame_tag "surveys" do
+        = render @survey_project.surveys

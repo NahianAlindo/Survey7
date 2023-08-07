@@ -1,9 +1,18 @@
 class SurveysController < ApplicationController
+  before_action :set_survey_project
   before_action :set_survey, only: %i[ show edit update destroy ]
 
   # GET /surveys or /surveys.json
   def index
-    @surveys = Survey.all
+    @pagy, @surveys = pagy(@survey_project.surveys.reorder(sort_column => sort_direction), items: params.fetch(:count, 5))
+  end
+
+  def sort_column
+    %w{ title code }.include?(params[:sort]) ? params[:sort] : "title"
+  end
+
+  def sort_direction
+    %w{ asc desc }.include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   # GET /surveys/1 or /surveys/1.json
@@ -12,7 +21,7 @@ class SurveysController < ApplicationController
 
   # GET /surveys/new
   def new
-    @survey = Survey.new
+    @survey = @survey_project.surveys.build
   end
 
   # GET /surveys/1/edit
@@ -21,29 +30,34 @@ class SurveysController < ApplicationController
 
   # POST /surveys or /surveys.json
   def create
-    @survey = Survey.new(survey_params)
+    @survey = @survey_project.surveys.new(survey_params)
 
-    respond_to do |format|
-      if @survey.save
-        format.html { redirect_to survey_url(@survey), notice: "Survey was successfully created." }
-        format.json { render :show, status: :created, location: @survey }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @survey.errors, status: :unprocessable_entity }
-      end
+    if @survey.save
+      flash.now[:notice] = "Survey was successfully created."
+      render turbo_stream: [
+        turbo_stream.prepend('surveys', @surveys),
+        turbo_stream.replace(
+          'form_survey',
+          partial: 'form',
+          locals: { survey: Survey.new }
+        ),
+        turbo_stream.replace('notice', partial: 'layouts/flash')
+      ]
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /surveys/1 or /surveys/1.json
   def update
-    respond_to do |format|
-      if @survey.update(survey_params)
-        format.html { redirect_to survey_url(@survey), notice: "Survey was successfully updated." }
-        format.json { render :show, status: :ok, location: @survey }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @survey.errors, status: :unprocessable_entity }
-      end
+    if @survey.update(survey_params)
+      flash.now[:notice] = 'Survey was successfully updated.'
+      render turbo_stream: [
+        turbo_stream.replace(@survey, @survey),
+        turbo_stream.replace('notice', partial: 'layouts/flash')
+      ]
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -51,20 +65,24 @@ class SurveysController < ApplicationController
   def destroy
     @survey.destroy
 
-    respond_to do |format|
-      format.html { redirect_to surveys_url, notice: "Survey was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    flash.now[:notice] = 'Survey was successfully destroyed.'
+    render turbo_stream: [
+      turbo_stream.remove(@survey),
+      turbo_stream.replace('notice', parital: 'layouts/flash')
+    ]
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_survey
-      @survey = Survey.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def survey_params
-      params.fetch(:survey, {})
-    end
+  private
+  def set_survey_project
+    @survey_project = SurveyProject.find(params[:survey_project_id])
+  end
+
+  def set_survey
+    @survey = Survey.find(params[:id])
+  end
+
+  def survey_params
+    params.require(:survey).permit(:title, :code, :title_bn, :survey_project_id, :survey_token_id)
+  end
 end

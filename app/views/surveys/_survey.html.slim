@@ -1,0 +1,11 @@
+= turbo_frame_tag "surveys" do
+  div.table.min-w-full
+    .row
+      / .col = survey_project_counter + 1
+      .col = survey.code
+      .col = survey.title
+      .col
+
+        = link_to "Show", survey_project_survey_path(survey.survey_project, survey)
+        = link_to "Edit", edit_survey_project_survey_path(survey.survey_project, survey)
+        = link_to "Delete", survey_project_survey_path(survey.survey_project, survey), method: :delete, data: { confirm: "Are you sure you wanna delete?" }

@@ -11,7 +11,7 @@ div.w-full
     div.table.font-bold.min-w-full
       .row
         / .col = "SL"
-        .col = sort_link_to "Title", :name, class: "table-cell pr-4", data: { turbo_action: "advance" }
+        .col = sort_link_to "Title", :title, class: "table-cell pr-4", data: { turbo_action: "advance" }
         .col = sort_link_to "Code", :code, class: "table-cell pr-4", data: { turbo_action: "advance" }
         .col = "Actions"
     = turbo_frame_tag "survey_projects" do

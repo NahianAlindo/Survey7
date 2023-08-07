@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title
+      | Survey7
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+  body
+    nav
+      #mySidenav.sidenav
+
+      a.closebtn[href="javascript:void(0)" onclick="closeNav()"]
+        | ×
+      |  <a href="
+      = survey_tokens_path
+      | ">Survey Tokens
+      |  <a href="
+      = survey_projects_path
+      | ">Survey Projects
+      a[href="#"]
+        | Survey List
+    span[style="font-size:30px;cursor:pointer" onclick="openNav()"]
+      | ☰
+    = render partial: "layouts/flash"
+    = yield
+    script
+      |  function openNav() { document.getElementById("mySidenav").style.width = "250px"; } function closeNav() { document.getElementById("mySidenav").style.width = "0"; } 
